@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <div class="authorization">
+        <h1>Добро пожаловать</h1>
+        <form action="" id="nickname">
+            <input id="nickname_input" type="text" placeholder="Введите ваш никнейм">
+            <button >Отправить</button>
+        </form>
+    </div>
+   
+    <header>
+        <div class="logo">KogleeChat</div>
+    </header>
+
+    <main>
+        <!-- <div class="chats">
+            <ul class="chat_list">
+                <li>Общий чат</li>
+                <li>Общий чат</li>
+            </ul>
+        </div> -->
+
+
+        <div class="users">
+            <h1>Участники чата</h1>
+            <p>Всего участников: <span id="count">1</span></p>
+            <ul class="users_list">
+  
+            </ul>
+        </div>
+
+
+        <div class="message_box">
+            <ul id="messages" class="message"></ul>
+            
+                
+                <form action="" id="form">
+                  <div class="smile">
+                    <ul id="smileList">
+                      <li  data-smile = "&#129315;">&#129315;</li>
+                      <li  data-smile = "&#128512;">&#128512;</li>
+                      <li  data-smile = "&#128525;">&#128525;</li>
+                      <li  data-smile = "&#128564;">&#128564;</li>
+                      <li  data-smile = "&#128552;">&#128552;</li>
+                      <li  data-smile = "&#128545;">&#128545;</li>
+                      <li  data-smile = "&#128128;">&#128128;</li>
+                      <li  data-smile = "&#128584;">&#128584;</li>
+                      <li  data-smile = "&#128570;">&#128570;</li>
+                      <li  data-smile = "&#128123;">&#128123;</li>
+                    </ul>
+                  </div>
+                  <div class="smile_open"></div>
+                    <input id="text_input" class="text_input" type="text" placeholder="Введите сообщение">
+                    <button class="submit">Отправить</button>
+                </form>
+        </div>
+    </main>
+
+
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+
+      let messages = document.getElementById('messages');
+      let form = document.getElementById('form');
+      let input = document.getElementById('text_input');
+
+
+      let authorization = document.querySelector(".authorization")
+      let nicknameForm = document.getElementById("nickname")
+      let nickname_input = document.getElementById("nickname_input")
+      let nickname;
+      let randomColor = Math.floor(Math.random()*16777215).toString(16);
+      
+
+      let userList = document.querySelector(".users_list")
+
+      socket.on("Hello", (nickname)=>{
+        var item = document.createElement('li');
+        item.innerHTML = `К чату присоединился ${nickname}`;
+        item.style.color = 'blue'
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight)
+      })
+
+
+
+      nicknameForm.addEventListener("submit", (e)=>{
+        if(nickname_input.value != ""){
+          e.preventDefault()
+          socket.emit("setNickname", nickname_input.value)
+          authorization.style.display = "none"
+          nickname = nickname_input.value
+        }
+      })
+
+    
+
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value != "") {
+          socket.emit('messageFromClient', input.value, nickname,randomColor);
+          input.value = '';
+        }
+      });
+
+      socket.on("addUser", (nickname, nicknames)=>{
+        let count = 0
+        userList.innerHTML += `<li id="${nickname}" class="user">${nickname}</li>`
+        for (key in nicknames){
+          count+=1
+          if(!(document.getElementById(`${nicknames[key]}`))){
+            userList.innerHTML += `<li id="${nicknames[key]}" class="user">${nicknames[key]}</li>`
+
+          }
+        }
+        let countHtml = document.getElementById("count")
+        countHtml.innerHTML = count
+      })
+      socket.on("deleteUser", (nickname)=>{
+          let delUser = document.getElementById(`${nickname}`)
+          delUser.remove()
+          var item = document.createElement('li');
+          item.innerHTML = `Нас покинул ${nickname}`;
+          item.style.color = 'blue'
+          messages.appendChild(item);
+          window.scrollTo(0, document.body.scrollHeight)
+          let countHtml = document.getElementById("count")
+        countHtml.innerHTML -= 1
+      })
+
+      socket.on('messageFromServer', function(msg, nickname,color) {
+        var item = document.createElement('li');
+        item.innerHTML = `${nickname}: <span id="black">${msg}</span>`;
+        
+        item.style.color = `#${color}`;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+
+      let smileOpen = document.querySelector(".smile_open")
+      let smile = document.querySelector(".smile")
+      let smileList = document.querySelector("#smileList")
+
+
+  
+      smileOpen.addEventListener("click", (e)=>{
+        e.preventDefault();
+        smile.style.display = "block";
+  }) 
+  smileList.addEventListener("click", (event)=>{
+          console.log(event.target.textContent)
+         input.value += event.target.attributes["data-smile"].value
+         smile.style.display = "none"
+        })
+
+
+    
+    
+
+
+    </script>
+  </body>
+</html>

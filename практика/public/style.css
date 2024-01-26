@@ -1,0 +1,252 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+header{
+    width: 100vw;
+    height:10vh;
+    background: white;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #498A93;
+}
+
+main{
+    padding-top: 5vh;
+    width: 100w;
+    height: 90vh;
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(300px,800px)); */
+    grid-template-columns: 40% 60% ;
+    background-color: #498A93;
+    justify-content: center;
+}
+
+/* */
+.chats{
+    background: #3B6D6A;
+    width: 50%;
+    height:100%;
+}
+.chat_list{
+    padding:20px 20px;
+}
+.chat_list li{
+    background: white;
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+
+/* Сообщения */
+.message_box{
+    background-color: white;
+    height: 70vh;
+    width: 60%;
+    
+    
+    
+}
+
+.message{
+    margin-top: 5%;
+    height: 85%;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+#messages{
+    font-size: 30px;
+}
+.message li{
+    margin-left: 10%;
+}
+
+
+
+.text_input{
+    height: 70%;
+    width: 60%;
+    border-radius: 20px;
+    padding-left: 20px;
+    font-size: 30px;
+}
+
+.submit{
+    width: 20%;
+    background: white;
+    height:50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.smile_open{
+    background-image: url("https://uxwing.com/wp-content/themes/uxwing/download/emoji-emoticon/smile-icon.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.smile{
+    display:none;
+
+    position: absolute;
+    left:50vw;
+    width: 100px;
+    background: white;
+ 
+}
+
+.smile ul{
+    display:flex;
+    flex-wrap: wrap;
+}
+.smile ul li{
+    font-size: 20px;
+}
+
+
+#form{
+    width:100%;
+    display: inline;
+    background: #3B6D6A;
+    height: 15%;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+/* Пользователи */
+.users_list{
+    padding: 0 20px;
+    margin-left:auto;
+    text-align: center;
+    
+}
+
+.user{
+    background: white;
+    border-radius: 20px;
+    height: 40px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+    margin-bottom: 15px;
+    padding: 0 25px; 
+    font-size: 20px;
+    
+}
+h1{
+    color: white;
+    text-align: center;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+}
+
+.authorization{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: #3B6D6A;
+    
+   
+}
+
+.authorization h1{
+    margin-top: 30vh;
+    margin-bottom: 50px;
+    font-size: 50px;
+    
+}
+
+.authorization form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#nickname_input{
+    height: 60px;
+    width: 30%;
+    border-radius: 20px;
+    padding-left: 20px;
+    border: none;
+    font-size: 30px;
+}
+
+.authorization form button{
+    width: 8%;
+    height: 40px;
+    margin-left: 20px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+#black{
+    color: black;
+    word-wrap: break-word;
+
+}
+
+.users p{
+    margin-left: 20px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    color: white
+}
+
+@media (max-width: 1000px) {
+    #nickname_input{
+        font-size: 30px;
+        width: 90%;
+        height: 100px;
+    }
+    .authorization form button{
+        margin-top: 20px;
+        height: 70px;
+        width: 20%;
+        font-size: 20px;
+    }
+    .authorization form{
+        flex-wrap: wrap;
+    }
+    .message_box{
+        height: 50vh
+    }
+    #messages{
+        font-size: 30px;
+    }
+    .text_input{
+        font-size: 30px;
+    }
+
+    .user{
+        width: 90%;
+        height: 60px;
+        font-size: 40px;
+    }
+    .users h1{
+        font-size: 40px;
+    }
+}

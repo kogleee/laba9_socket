@@ -155,12 +155,21 @@
       smileOpen.addEventListener("click", (e)=>{
         e.preventDefault();
         smile.style.display = "block";
-  }) 
+  })
+
+  
+   
   smileList.addEventListener("click", (event)=>{
           console.log(event.target.textContent)
          input.value += event.target.attributes["data-smile"].value
          smile.style.display = "none"
         })
+
+  window.addEventListener("click", (event)=>{
+    if (event.target != smileOpen){
+      smile.style.display = "none"
+    }
+  })
 
 
     
